@@ -15,9 +15,13 @@ function NewTaskForm({ onTaskFormSubmit, category: categoryList }) {
 			className="new-task-form"
 			onSubmit={(e) => {
 				e.preventDefault();
-				onTaskFormSubmit({ text: details, category });
-				setCategory("");
-				setDetails("");
+				if (details === "" || category === "") {
+					alert("Please fill out all fields");
+				} else {
+					onTaskFormSubmit({ text: details, category });
+					setDetails("");
+					setCategory("");
+				}
 			}}
 		>
 			<label>
