@@ -7,17 +7,16 @@ import { CATEGORIES, TASKS } from "../data";
 
 function App() {
 	const [tasks, setTasks] = React.useState(TASKS);
-	const [category, setCategory] = React.useState(CATEGORIES);
 
 	const handleDeleteTasks = (task) => {
 		let newTasks = tasks.filter((t) => t.text !== task);
 		setTasks(newTasks);
 	};
-	const handleFilterTasks = (category) => {
-		if (category === "All") {
+	const handleFilterTasks = (CATEGORIES) => {
+		if (CATEGORIES === "All") {
 			setTasks(TASKS);
 		} else {
-			let newTasks = TASKS.filter((t) => t.category === category);
+			let newTasks = TASKS.filter((t) => t.category === CATEGORIES);
 			setTasks(newTasks);
 		}
 	};
@@ -29,10 +28,13 @@ function App() {
 		<div className="App">
 			<h2>My tasks</h2>
 			<CategoryFilter
-				category={category}
+				categories={CATEGORIES}
 				handleFilterTasks={handleFilterTasks}
 			/>
-			<NewTaskForm category={category} onTaskFormSubmit={onTaskFormSubmit} />
+			<NewTaskForm
+				categories={CATEGORIES}
+				onTaskFormSubmit={onTaskFormSubmit}
+			/>
 			<TaskList tasks={tasks} handleDeleteTasks={handleDeleteTasks} />
 		</div>
 	);
