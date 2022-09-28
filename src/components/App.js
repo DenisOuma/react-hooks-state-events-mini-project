@@ -4,13 +4,11 @@ import NewTaskForm from "./NewTaskForm";
 import TaskList from "./TaskList";
 
 import { CATEGORIES, TASKS } from "../data";
-console.log("Here's the data you're working with");
-console.log({ CATEGORIES, TASKS });
 
 function App() {
 	const [tasks, setTasks] = React.useState(TASKS);
 	const [category, setCategory] = React.useState(CATEGORIES);
-	const [newTask, setNewTask] = React.useState("");
+
 	const handleDeleteTasks = (task) => {
 		let newTasks = tasks.filter((t) => t.text !== task);
 		setTasks(newTasks);
@@ -23,8 +21,8 @@ function App() {
 			setTasks(newTasks);
 		}
 	};
-	const handleAddTask = (newTask) => {
-		setNewTask([...tasks, newTask]);
+	const onTaskFormSubmit = (newTask) => {
+		setTasks([...tasks, newTask]);
 	};
 
 	return (
@@ -34,7 +32,7 @@ function App() {
 				category={category}
 				handleFilterTasks={handleFilterTasks}
 			/>
-			<NewTaskForm newTask={newTask} handleAddTask={handleAddTask} />
+			<NewTaskForm category={category} onTaskFormSubmit={onTaskFormSubmit} />
 			<TaskList tasks={tasks} handleDeleteTasks={handleDeleteTasks} />
 		</div>
 	);
